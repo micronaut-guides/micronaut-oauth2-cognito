@@ -1,29 +1,17 @@
 micronaut:
   application:
-    name: examples
-  server:
-    port: 8080
-    cors:
-      enabled: true
+    name: app
   #tag::oauth2[]
   security:
+    authentication: idtoken # <1>
     oauth2:
       clients:
-        cognito: # <1>
-          client-secret: '${OAUTH_CLIENT_SECRET}' # <2>
+        cognito: # <2>
           client-id: '${OAUTH_CLIENT_ID}' # <3>
+          client-secret: '${OAUTH_CLIENT_SECRET}' # <4>
           openid:
-            issuer: 'https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${COGNITO_POOL_ID}/' # <4>
-    token:
-      jwt:
-        cookie:
-          enabled: true # <5>
-        signatures:
-          secret:
-            generator:
-              secret: pleaseChangeThisSecretForANewOne
+            issuer: 'https://cognito-idp.${COGNITO_REGION}.amazonaws.com/${COGNITO_POOL_ID}/' # <5>
     endpoints:
       logout:
-        enabled: true # <6>
-        get-allowed: true # <7>
+        get-allowed: true # <6>
 #end::oauth2[]
